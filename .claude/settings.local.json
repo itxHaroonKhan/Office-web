@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Select-String -Pattern \"public|vite|config\")",
+      "Bash(npm run *)",
+      "WebFetch(domain:www.reactbits.dev)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api *)",
+      "Bash(python -c \"import sys,json; t=json.load\\(sys.stdin\\); [print\\(x['path']\\) for x in t.get\\('tree',[]\\) if 'allpit' in x['path'].lower\\(\\) or 'ball' in x['path'].lower\\(\\)]\")",
+      "WebFetch(domain:github.com)",
+      "Bash(node -e \"const t = require\\('./node_modules/three/package.json'\\); console.log\\(t.version\\)\")",
+      "Bash(node -e \"import\\('three/examples/jsm/environments/RoomEnvironment.js'\\).then\\(m => console.log\\('OK:', Object.keys\\(m\\)\\)\\).catch\\(e => console.error\\('FAIL:', e.message\\)\\)\")",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

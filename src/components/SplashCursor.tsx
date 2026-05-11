@@ -675,8 +675,9 @@ function SplashCursor({
 
     function resizeFBO(target: any, w: number, h: number, internalFormat: number, format: number, type: number, param: number) {
       let newFBO = createFBO(w, h, internalFormat, format, type, param);
-      new Program(baseVertexShader, copyShader).bind();
-      gl.uniform1i(gl.getUniformLocation(new Program(baseVertexShader, copyShader).program, 'uTexture'), target.attach(0));
+      const copyProgram = new Program(baseVertexShader, copyShader);
+      copyProgram.bind();
+      gl.uniform1i(gl.getUniformLocation(copyProgram.program, 'uTexture'), target.attach(0));
       blit(newFBO);
       return newFBO;
     }

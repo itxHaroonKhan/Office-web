@@ -3,40 +3,40 @@ import { Marquee } from "@/components/ui/marquee"
 
 const reviews = [
   {
-    name: "Jack",
-    username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: "https://avatar.vercel.sh/jack",
+    name: "Sarah Johnson",
+    username: "CEO at TechStart",
+    body: "Digital Spark Web transformed our online presence. Their web design team is incredibly talented and professional.",
+    img: "/user1.webp",
   },
   {
-    name: "Jill",
-    username: "@jill",
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: "https://avatar.vercel.sh/jill",
+    name: "Michael Davis",
+    username: "Marketing Director",
+    body: "Working with them was the best decision for our brand. Attention to detail and quality is truly unmatched.",
+    img: "/user2.webp",
   },
   {
-    name: "John",
-    username: "@john",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/john",
+    name: "Jennifer Williams",
+    username: "Project Manager",
+    body: "Compelling visuals and robust code. They understood our vision perfectly from day one and delivered on time.",
+    img: "/user3.webp",
   },
   {
-    name: "Jane",
-    username: "@jane",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jane",
+    name: "Robert Brown",
+    username: "Founder, Brown Ent.",
+    body: "Outstanding work on our branding! They delivered an identity that truly represents who we are as a company.",
+    img: "/user1.webp",
   },
   {
-    name: "Jenny",
-    username: "@jenny",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jenny",
+    name: "Emily Clark",
+    username: "Head of Design",
+    body: "The team's creativity and professionalism exceeded all our expectations. Highly recommend Digital Spark Web.",
+    img: "/user2.webp",
   },
   {
-    name: "James",
-    username: "@james",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/james",
+    name: "David Wilson",
+    username: "CTO at InnovateCo",
+    body: "From concept to launch, they delivered everything on time and beyond quality standards. A truly exceptional team.",
+    img: "/user3.webp",
   },
 ]
 
@@ -64,7 +64,7 @@ const ReviewCard = ({
       )}
     >
       <div className="flex flex-row items-center gap-2">
-        <img className="rounded-full" width="32" height="32" alt="" src={img} referrerPolicy="no-referrer" />
+        <img className="rounded-full object-cover" width="32" height="32" alt={name} src={img} />
         <div className="flex flex-col">
           <figcaption className="text-sm font-medium dark:text-white">
             {name}

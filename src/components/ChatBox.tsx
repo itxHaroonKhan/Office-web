@@ -154,9 +154,6 @@ export function ChatBox({ onClose }: { onClose: () => void }) {
             <Send size={16} />
           </button>
         </form>
-        <p className="text-[9px] text-center mt-3 text-white/20 font-medium tracking-wider">
-          AI powered by Digital Spark Web Intelligent Systems
-        </p>
       </div>
     </motion.div>
   );

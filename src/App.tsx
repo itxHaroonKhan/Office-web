@@ -1,10 +1,12 @@
-import { motion, AnimatePresence, useScroll } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import SplashCursor from "./components/SplashCursor";
 import ScrollVelocity from "./components/ScrollVelocity";
 import { MarqueeDemo } from "./components/MarqueeDemo";
+import { Marquee } from "@/components/ui/marquee";
 import { GlobeDemo } from "./components/GlobeDemo";
 import { ChatBox } from "./components/ChatBox";
+import Ballpit from "./components/Ballpit";
 import { 
   ChevronDown,
   MessageCircle,
@@ -35,9 +37,9 @@ import {
 } from "lucide-react";
 
 const IMAGES = [
-  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&q=80&w=1000"
+  "/mainslideimg.webp",
+  "/illustrationteenage.webp",
+  "/prevWork.webp"
 ];
 
 export default function App() {
@@ -49,6 +51,13 @@ export default function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [activeNav, setActiveNav] = useState("home");
   const { scrollYProgress } = useScroll();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const smoothHero  = useSpring(heroScroll, { stiffness: 60, damping: 20, mass: 0.4 });
+  const heroScale   = useTransform(smoothHero, [0, 1], [1, 1.08]);
+  const heroOpacity = useTransform(smoothHero, [0, 0.7], [1, 0]);
+  const heroTextY   = useTransform(smoothHero, [0, 1], ["0%", "-28%"]);
+  const heroTextOp  = useTransform(smoothHero, [0, 0.45], [1, 0]);
 
   useEffect(() => {
     const observerOptions = {
@@ -77,25 +86,39 @@ export default function App() {
 
   const portfolioCategories = ["All", "Web Design", "Branding", "Mobile Apps", "Video"];
   const portfolioItems = [
-    { title: "E-Commerce OS", cat: "Web Design", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Lumina Brand", cat: "Branding", img: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Mobile Banking", cat: "Mobile Apps", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Strategy Analytics", cat: "Web Design", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Eco-Motion", cat: "Video", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200" },
-    { title: "HealthTrack", cat: "Mobile Apps", img: "https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80&w=1200" }
+    { title: "E-Commerce Store", cat: "Web Design", img: "/portfolio_web1.webp" },
+    { title: "Corporate Portal", cat: "Web Design", img: "/portfolio_web2.webp" },
+    { title: "Business Landing", cat: "Web Design", img: "/portfolio_web3.webp" },
+    { title: "Fashion Website", cat: "Web Design", img: "/portfolio_web4.webp" },
+    { title: "Agency Website", cat: "Web Design", img: "/portfolio_web5.webp" },
+    { title: "SaaS Platform", cat: "Web Design", img: "/portfolio_web6.webp" },
+    { title: "Lumina Brand", cat: "Branding", img: "/portfolio_brand1.webp" },
+    { title: "Nexus Identity", cat: "Branding", img: "/portfolio_brand2.webp" },
+    { title: "Apex Branding", cat: "Branding", img: "/portfolio_brand3.webp" },
+    { title: "Vibe Creative", cat: "Branding", img: "/portfolio_brand4.webp" },
+    { title: "Pulse Brand", cat: "Branding", img: "/portfolio_brand5.webp" },
+    { title: "Mobile Banking", cat: "Mobile Apps", img: "/portfolio_mob1.webp" },
+    { title: "HealthTrack App", cat: "Mobile Apps", img: "/portfolio_mob2.webp" },
+    { title: "Delivery Platform", cat: "Mobile Apps", img: "/portfolio_mob3.webp" },
+    { title: "Fitness Tracker", cat: "Mobile Apps", img: "/portfolio_mob4.webp" },
+    { title: "Travel App", cat: "Mobile Apps", img: "/portfolio_mob5.webp" },
+    { title: "Eco-Motion Film", cat: "Video", img: "/portfolio_video-animation_9.webp" },
+    { title: "Brand Promo", cat: "Video", img: "/portfolio_video-animation_10.webp" },
+    { title: "Product Reel", cat: "Video", img: "/portfolio_video-animation_11.webp" },
+    { title: "Corporate Video", cat: "Video", img: "/portfolio_video-animation_12.webp" },
   ];
 
   const teamMembers = [
-    { name: "John Sterling", role: "Creative Director", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400" },
-    { name: "Maya Vance", role: "UI/UX Designer", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400" },
-    { name: "David Chen", role: "Full-Stack Dev", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400" },
-    { name: "Elena Rossi", role: "Brand Strategist", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" }
+    { name: "John Sterling", role: "Creative Director", img: "/user1.webp" },
+    { name: "Maya Vance", role: "UI/UX Designer", img: "/user2.webp" },
+    { name: "David Chen", role: "Full-Stack Dev", img: "/user3.webp" },
+    { name: "Elena Rossi", role: "Brand Strategist", img: "/user1.webp" }
   ];
 
   const blogPosts = [
-    { title: "The Future of Web Design in 2024", date: "Oct 24, 2023", cat: "Industry", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800" },
-    { title: "Mastering Brand Identity", date: "Nov 12, 2023", cat: "Branding", img: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&q=80&w=800" },
-    { title: "SEO Strategies for Small Business", date: "Dec 05, 2023", cat: "Marketing", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" }
+    { title: "The Future of Web Design in 2024", date: "Oct 24, 2023", cat: "Industry", img: "/services_webapp.webp" },
+    { title: "Mastering Brand Identity", date: "Nov 12, 2023", cat: "Branding", img: "/services_logoandbranding.webp" },
+    { title: "SEO Strategies for Small Business", date: "Dec 05, 2023", cat: "Marketing", img: "/services_seo.webp" }
   ];
 
   const faqs = [
@@ -166,7 +189,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0b1e] text-white font-sans selection:bg-primary/30 overflow-x-hidden">
+    <div className="min-h-screen bg-[#03080f] text-white font-sans selection:bg-primary/30 overflow-x-hidden">
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left"
         style={{ scaleX: scrollYProgress }}
@@ -196,11 +219,11 @@ export default function App() {
         COLOR_UPDATE_SPEED={10}
         SHADING
         RAINBOW_MODE={false}
-        COLOR="#a50417" 
+        COLOR="#3b82f6"
       />
       {/* Header / Navbar */}
-      <nav className={`fixed w-full z-50 px-6 transition-all duration-700 ${isScrolled ? 'py-4' : 'py-8'}`}>
-        <div className={`max-w-7xl mx-auto flex items-center justify-between transition-all duration-500 ${isScrolled ? 'bg-[#0a0b1e]/60 backdrop-blur-3xl border border-white/10 rounded-3xl px-8 py-3' : ''}`}>
+      <nav className={`fixed w-full z-50 px-8 transition-all duration-500 ${isScrolled ? 'py-3 bg-[#03080f]/80 backdrop-blur-2xl border-b border-white/[0.07] shadow-2xl shadow-black/40' : 'py-7'}`}>
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo - Matching screenshot dots */}
           <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection('home')}>
             <div className="flex flex-col items-center">
@@ -210,15 +233,15 @@ export default function App() {
                </div>
                <div className="flex space-x-0.5 mt-0.5">
                   <div className="w-3 h-6 bg-primary rounded-sm group-hover:-translate-y-1 transition-transform" />
-                  <div className="w-3 h-3 bg-white rounded-full self-end -ml-1.5 border-2 border-[#0a0b1e] shadow-xl z-10" />
+                  <div className="w-3 h-3 bg-white rounded-full self-end -ml-1.5 border-2 border-[#03080f] shadow-xl z-10" />
                </div>
             </div>
             <div className="flex flex-col -space-y-1">
               <span className="font-display font-black text-2xl tracking-[0.05em] uppercase leading-none transition-colors group-hover:text-primary">
-                DIGITAL
+                SOFTWARE
               </span>
               <span className="text-[10px] font-black uppercase tracking-[0.55em] text-white/40 group-hover:text-white transition-colors">
-                SPARK WEB
+                ELITES
               </span>
             </div>
           </div>
@@ -258,7 +281,7 @@ export default function App() {
               onClick={() => scrollToSection('contact')}
               className="hidden sm:flex bg-primary hover:scale-105 hover:brightness-110 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] transition-all shadow-2xl shadow-primary/30 items-center gap-2 group active:scale-95"
             >
-              Launch Project
+              GET A QUOTE
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </button>
 
@@ -280,7 +303,7 @@ export default function App() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-0 z-[60] bg-[#0a0b1e] flex flex-col p-10 pt-32"
+              className="fixed inset-0 z-[60] bg-[#03080f] flex flex-col p-10 pt-32"
             >
               <button 
                 onClick={() => setIsMenuOpen(false)}
@@ -324,7 +347,7 @@ export default function App() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">Contact Us</p>
-                  <p className="text-white/40 text-sm font-medium">info@digitalsparkweb.com</p>
+                  <p className="text-white/40 text-sm font-medium">info@softwareelites.com</p>
                 </div>
               </div>
             </motion.div>
@@ -333,132 +356,96 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-20">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center">
-          {/* Large Background Text - Animating behind UI */}
-          <motion.div 
-            initial={{ x: 0 }}
-            animate={{ x: "-50%" }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
-            className="whitespace-nowrap flex"
+      <section id="home" ref={heroRef} style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
+        {/* Ballpit background */}
+        <motion.div style={{ scale: heroScale, opacity: heroOpacity, width: '100%', height: '100%' }}>
+          <Ballpit
+            count={120}
+            gravity={0.01}
+            friction={0.9975}
+            wallBounce={0.95}
+            followCursor={true}
+            colors={[0x3b82f6, 0x38bdf8, 0x60a5fa, 0x0ea5e9, 0x93c5fd, 0x7dd3fc]}
+          />
+        </motion.div>
+
+        {/* Hero Text Overlay */}
+        <motion.div
+          style={{ y: heroTextY, opacity: heroTextOp }}
+          className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-primary text-sm font-semibold uppercase tracking-[0.25em] mb-4"
           >
-            <h1 className="text-[22vw] font-display font-black tracking-tighter leading-none select-none text-white/5 pr-20">
-              WE SPARK SUCCESS SPARK SUCCESS SPARK 
-            </h1>
-            <h1 className="text-[22vw] font-display font-black tracking-tighter leading-none select-none text-white/5 pr-20">
-              WE SPARK SUCCESS SPARK SUCCESS SPARK 
-            </h1>
+            Software Elites
+          </motion.span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white leading-[0.95] tracking-tight"
+          >
+            We Build
+            <br />
+            <span className="text-primary">Elite</span> Software
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55 }}
+            className="mt-6 text-lg md:text-xl text-white/60 max-w-xl leading-relaxed"
+          >
+            Premium software company crafting powerful websites,
+            mobile apps & custom systems that scale.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.75 }}
+            className="mt-10 flex flex-wrap gap-4 justify-center pointer-events-auto"
+          >
+            <a
+              href="#contact"
+              className="px-8 py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300"
+            >
+              Start a Project
+            </a>
+            <a
+              href="#work"
+              className="px-8 py-3.5 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-primary transition-all duration-300"
+            >
+              View Our Work
+            </a>
           </motion.div>
-        </div>
+        </motion.div>
 
-        <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-20 items-center">
-            
-            {/* Left side: Images Layout with Carousel logic inside */}
-            <div className="relative h-[600px] flex items-center justify-center lg:justify-start">
-              <div className="relative w-full max-w-sm aspect-[3.5/5]">
-                <AnimatePresence mode="popLayout">
-                  {IMAGES.map((img, i) => (
-                    (activeImg === i || i === (activeImg + 1) % IMAGES.length || i === (activeImg - 1 + IMAGES.length) % IMAGES.length) && (
-                      <motion.div
-                        key={img}
-                        initial={{ opacity: 0, x: 50, rotate: 5, scale: 0.9 }}
-                        animate={{ 
-                          opacity: i === activeImg ? 1 : 0.4, 
-                          x: i === activeImg ? 0 : (i === (activeImg + 1) % IMAGES.length ? 40 : -40),
-                          y: i === activeImg ? 0 : (i === (activeImg + 1) % IMAGES.length ? -10 : 10),
-                          rotate: i === activeImg ? 0 : (i === (activeImg + 1) % IMAGES.length ? 3 : -3),
-                          scale: i === activeImg ? 1 : 0.95,
-                          zIndex: i === activeImg ? 30 : 20 
-                        }}
-                        exit={{ opacity: 0, x: -50, rotate: -5, scale: 0.9 }}
-                        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-                        className="absolute inset-0 rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.5)] border-2 border-white/5"
-                      >
-                        <img 
-                          src={img} 
-                          alt="Portfolio"
-                          className="w-full h-full object-cover grayscale brightness-90"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b1e]/60 to-transparent" />
-                      </motion.div>
-                    )
-                  ))}
-                </AnimatePresence>
-                
-                {/* Floating Teal Dot from the screenshot */}
-                <div className="absolute -left-3 top-[60%] w-4 h-4 bg-primary rounded-full shadow-[0_0_15px_rgba(30,177,177,0.8)] z-40" />
-              </div>
-            </div>
-
-            {/* Right side: Content */}
-            <div className="flex flex-col items-start text-left lg:-ml-10 relative z-20">
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-white text-5xl md:text-7xl lg:text-[5.5rem] font-display font-black leading-[0.9] tracking-tighter uppercase mb-8"
-              >
-                SERVICES & <br /> <span className="text-white/40 italic">SOLUTIONS.</span>
-              </motion.h2>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-lg text-white/60 max-w-sm mb-10 leading-relaxed font-light"
-              >
-                Our creative web design services help rediscover your business's image in the Internet marketplace. <span className="text-white/40">Blending style and technology for global brands.</span>
-              </motion.p>
-
-              <motion.button 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1,
-                  boxShadow: ["0 0 0 0 rgba(165,4,23,0.4)", "0 0 0 20px rgba(165,4,23,0)", "0 0 0 0 rgba(165,4,23,0)"]
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ 
-                  initial: { delay: 0.4 },
-                  animate: { 
-                    boxShadow: {
-                      duration: 2, 
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }
-                  }
-                }}
-                onClick={() => scrollToSection('portfolio')}
-                className="bg-primary text-white font-black uppercase text-[11px] tracking-[.3em] px-14 py-6 rounded-full transition-all"
-              >
-                Explore Work
-              </motion.button>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div 
+        {/* Scroll indicator */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+          transition={{ delay: 1.2 }}
+          style={{ opacity: heroTextOp }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <div className="w-[1px] h-20 bg-gradient-to-b from-transparent via-primary/50 to-primary" />
-          <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/30 [writing-mode:vertical-lr] py-4 uppercase">Scroll to discover</span>
+          <span className="text-white/30 text-xs uppercase tracking-widest">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent"
+          />
         </motion.div>
       </section>
 
       {/* Scrolling Text Section */}
       <section className="py-12 bg-deep border-y border-white/5 overflow-hidden">
         <ScrollVelocity
-          texts={['DIGITAL SPARK WEB', 'CREATIVE AGENCY', 'CRAFTED IN USA', 'STRATEGY']} 
+          texts={['SOFTWARE ELITES', 'WE BUILD SOFTWARE', 'CRAFTED WITH PASSION', 'ELITE SOLUTIONS']}
           velocity={60}
           className="text-5xl md:text-8xl font-display font-black uppercase tracking-tighter text-white/10 hover:text-primary/90 transition-colors duration-1000 cursor-default"
           numCopies={8}
@@ -468,18 +455,32 @@ export default function App() {
       {/* Companies Section */}
       <section className="py-20 bg-white/5 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
-          <div className="max-w-xs">
+          <div className="max-w-xs shrink-0">
              <h4 className="text-2xl font-display font-black uppercase leading-tight">Companies We <span className="text-primary">Helped Build.</span></h4>
           </div>
-          <div className="flex-grow flex justify-center">
-            <MarqueeDemo />
+          <div className="flex-grow overflow-hidden relative">
+            <Marquee pauseOnHover className="[--duration:25s]">
+              {[
+                "/clients_clients01.webp",
+                "/clients_clients02.webp",
+                "/clients_clients03.webp",
+                "/clients_clients04.webp",
+                "/clients_clients05.webp",
+                "/clients_clients06.webp",
+              ].map((src, i) => (
+                <img key={i} src={src} alt="client" className="h-14 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 mx-6" />
+              ))}
+            </Marquee>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white/5" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white/5" />
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="relative py-32 px-6">
-        <div className="max-w-7xl mx-auto">
+      <section id="services" className="relative min-h-screen py-32 px-6 flex items-center">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[60vh] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-8">
             <div className="max-w-2xl">
               <motion.span 
@@ -488,43 +489,43 @@ export default function App() {
                 viewport={{ once: true }}
                 className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block"
               >
-                Our Services
+                What We Do
               </motion.span>
-              <motion.h3 
+              <motion.h3
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-6xl font-display font-black uppercase leading-none"
               >
-                Complete <span className="text-white/30">Digital</span> Solutions.
+                Everything Your <span className="text-white/30">Brand</span> Needs.
               </motion.h3>
             </div>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="text-white/40 max-w-sm text-sm leading-relaxed"
             >
-              We offer a comprehensive range of digital services to help your business thrive online. From creative design to powerful strategy.
+              From pixel-perfect design to scalable code — we handle every piece of your digital presence so you can focus on growing your business.
             </motion.p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: <Palette size={24} />, title: "Web Design", desc: "Creative, modern designs that captivate and convert." },
-              { icon: <Code2 size={24} />, title: "Web Development", desc: "Robust, scalable solutions using modern technologies." },
-              { icon: <Smartphone size={24} />, title: "Mobile App Dev", desc: "Native and cross-platform apps for iOS and Android." },
-              { icon: <Globe size={24} />, title: "SEO Optimization", desc: "Data-driven strategies to boost organic traffic." },
-              { icon: <Sparkles size={24} />, title: "Logo & Branding", desc: "Professional identity packages that stand out." },
-              { icon: <Smartphone size={24} />, title: "E-Commerce", desc: "Complete platforms with secure payment gateways." },
-              { icon: <Code2 size={24} />, title: "WordPress Dev", desc: "Custom themes and plugins tailored to your needs." },
-              { icon: <Smartphone size={24} />, title: "UI/UX Design", desc: "User-centered design that makes products intuitive." },
-              { icon: <MessageCircle size={24} />, title: "Social Media", desc: "Strategic campaigns that build engagement and leads." },
-              { icon: <Palette size={24} />, title: "Video & Animation", desc: "Compelling visuals that communicate effectively." },
-              { icon: <Code2 size={24} />, title: "Maintenance", desc: "Ongoing updates and security monitoring." },
-              { icon: <Globe size={24} />, title: "Domain & Hosting", desc: "Fast, secure, and reliable hosting solutions." }
+              { icon: <Palette size={24} />, title: "Web Design", desc: "Creative, modern designs that captivate and convert.", img: "/services_webapp.webp" },
+              { icon: <Code2 size={24} />, title: "Web Development", desc: "Robust, scalable solutions using modern technologies.", img: "/services_backend.webp" },
+              { icon: <Smartphone size={24} />, title: "Mobile App Dev", desc: "Native and cross-platform apps for iOS and Android.", img: "/services_mobile.webp" },
+              { icon: <Globe size={24} />, title: "SEO Optimization", desc: "Data-driven strategies to boost organic traffic.", img: "/services_seo.webp" },
+              { icon: <Sparkles size={24} />, title: "Logo & Branding", desc: "Professional identity packages that stand out.", img: "/services_logoandbranding.webp" },
+              { icon: <Smartphone size={24} />, title: "E-Commerce", desc: "Complete platforms with secure payment gateways.", img: "/services_ecom.webp" },
+              { icon: <Code2 size={24} />, title: "WordPress Dev", desc: "Custom themes and plugins tailored to your needs.", img: "/services_wordpress.webp" },
+              { icon: <Smartphone size={24} />, title: "UI/UX Design", desc: "User-centered design that makes products intuitive.", img: "/services_ui.webp" },
+              { icon: <MessageCircle size={24} />, title: "Social Media", desc: "Strategic campaigns that build engagement and leads.", img: "/services_smm.webp" },
+              { icon: <Palette size={24} />, title: "Video & Animation", desc: "Compelling visuals that communicate effectively.", img: "/services_videoandanimation.webp" },
+              { icon: <Code2 size={24} />, title: "Maintenance", desc: "Ongoing updates and security monitoring.", img: "/services_websitemaintenance.webp" },
+              { icon: <Globe size={24} />, title: "Domain & Hosting", desc: "Fast, secure, and reliable hosting solutions.", img: "/services_domainandhosting.webp" }
             ].map((service, i) => (
               <motion.div 
                 key={service.title}
@@ -552,6 +553,9 @@ export default function App() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative z-10">
+                  <div className="w-full aspect-video rounded-xl overflow-hidden mb-4">
+                    <img src={service.img} alt={service.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                  </div>
                   <div className="text-primary mb-4 group-hover:scale-110 transition-transform origin-left">{service.icon}</div>
                   <h4 className="text-lg font-bold mb-3">{service.title}</h4>
                   <p className="text-white/40 text-xs leading-relaxed mb-6">{service.desc}</p>
@@ -566,8 +570,9 @@ export default function App() {
       </section>
 
       {/* Work/Portfolio Section */}
-      <section id="portfolio" className="py-32 px-6 bg-[#08091a]">
-        <div className="max-w-7xl mx-auto">
+      <section id="portfolio" className="relative min-h-screen py-32 px-6 bg-[#020c18]">
+        <div className="absolute bottom-0 right-0 w-[60vw] h-[60vh] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="mb-20 text-center">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
@@ -575,25 +580,25 @@ export default function App() {
               viewport={{ once: true }}
               className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block"
             >
-              Portfolio
+              Our Portfolio
             </motion.span>
-            <motion.h3 
+            <motion.h3
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               className="text-5xl md:text-8xl font-display font-black uppercase tracking-tighter mb-8"
             >
-              Selected <span className="text-primary">Work.</span>
+              Work That <span className="text-primary">Speaks.</span>
             </motion.h3>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="text-white/40 mb-12"
             >
-              Being in this industry for decades, our creative agency has built a huge portfolio serving businesses with effective solutions.
+              500+ projects delivered across 30+ industries. Every pixel intentional, every line of code purposeful.
             </motion.p>
             
             {/* Portfolio Filters */}
@@ -667,10 +672,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
             {[
-              { count: "500+", label: "Projects Completed" },
-              { count: "300+", label: "Happy Clients" },
-              { count: "15+", label: "Years Experience" },
-              { count: "50+", label: "Team Members" }
+              { count: "500+", label: "Projects Delivered" },
+              { count: "300+", label: "Satisfied Clients" },
+              { count: "15+", label: "Years in Business" },
+              { count: "50+", label: "Expert Creators" }
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -688,50 +693,70 @@ export default function App() {
       </section>
 
       {/* Technologies Section */}
-      <section id="technologies" className="py-32 px-6">
-        <div className="max-w-7xl mx-auto">
+      <section id="technologies" className="relative min-h-screen py-32 px-6">
+        <div className="absolute top-1/2 left-0 w-[50vw] h-[70vh] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="mb-20">
-            <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Tech Stack</span>
-            <h3 className="text-4xl md:text-6xl font-display font-black uppercase mb-12">Technologies <span className="text-white/30">We Use.</span></h3>
+            <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Our Tech Stack</span>
+            <h3 className="text-4xl md:text-6xl font-display font-black uppercase mb-12">Built With <span className="text-white/30">the Best.</span></h3>
             
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
-              {['React', 'Node.js', 'MongoDB', 'Python', 'AWS', 'Figma', 'TypeScript', 'Tailwind'].map((tech, i) => (
-                <motion.div 
-                  key={tech}
+              {[
+                { name: 'React', img: '/technology_code.webp' },
+                { name: 'Node.js', img: '/technology_zex.webp' },
+                { name: 'MongoDB', img: '/technology_mongo.webp' },
+                { name: 'Python', img: '/technology_code.webp' },
+                { name: 'AWS', img: '/technology_materialize.webp' },
+                { name: 'Figma', img: '/technodesign.webp' },
+                { name: 'TypeScript', img: '/technology_css.webp' },
+                { name: 'Tailwind', img: '/technology_html.webp' }
+              ].map((tech, i) => (
+                <motion.div
+                  key={tech.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
-                  className="bg-white/5 border border-white/10 p-8 rounded-3xl flex items-center justify-between group hover:bg-white/10 transition-all cursor-default"
+                  className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden group hover:bg-white/10 transition-all cursor-default"
                 >
-                  <span className="text-lg font-bold group-hover:text-primary transition-colors">{tech}</span>
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors">
-                    <Sparkles size={16} className="text-white/20 group-hover:text-white" />
+                  <div className="h-24 overflow-hidden">
+                    <img src={tech.img} alt={tech.name} className="w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" />
+                  </div>
+                  <div className="p-5 flex items-center justify-between">
+                    <span className="text-lg font-bold group-hover:text-primary transition-colors">{tech.name}</span>
+                    <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors">
+                      <Sparkles size={14} className="text-white/20 group-hover:text-white" />
+                    </div>
                   </div>
                 </motion.div>
               ))}
             </div>
 
             <div className="border-t border-white/5 pt-20">
-                <h4 className="text-3xl font-display font-black uppercase mb-12 text-center">Our Development <span className="text-primary">Process.</span></h4>
+                <h4 className="text-3xl font-display font-black uppercase mb-12 text-center">How We <span className="text-primary">Get It Done.</span></h4>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                   {[
-                    { step: "01", title: "Discovery", desc: "Understanding your vision and project requirements." },
-                    { step: "02", title: "Design", desc: "Creating beautiful and functional UI/UX prototypes." },
-                    { step: "03", title: "Build", desc: "Clean and scalable code implementation." },
-                    { step: "04", title: "Launch", desc: "Deployment and ongoing success support." }
+                    { step: "01", title: "Discovery", desc: "We dig deep into your goals, audience, and market to craft a winning strategy.", img: "/discovery.webp" },
+                    { step: "02", title: "Design", desc: "Bold, conversion-focused UI/UX that looks stunning on every screen.", img: "/designanddevelopment.webp" },
+                    { step: "03", title: "Build", desc: "Rock-solid code built for speed, security, and scale.", img: "/technodesign.webp" },
+                    { step: "04", title: "Launch", desc: "We go live — then stay by your side to grow and optimize.", img: "/testing.webp" }
                   ].map((item, i) => (
-                    <motion.div 
+                    <motion.div
                       key={item.step}
                       initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.1 }}
-                      className="relative p-8 rounded-3xl bg-white/[0.02] border border-white/5 group hover:border-primary/30 transition-all"
+                      className="relative rounded-3xl bg-white/[0.02] border border-white/5 group hover:border-primary/30 transition-all overflow-hidden"
                     >
-                      <span className="text-5xl font-display font-black text-white/5 absolute top-4 right-8 group-hover:text-primary/10 transition-colors">{item.step}</span>
-                      <h5 className="text-xl font-bold mb-4">{item.title}</h5>
-                      <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                      <div className="h-36 overflow-hidden">
+                        <img src={item.img} alt={item.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-500" />
+                      </div>
+                      <div className="p-8 relative">
+                        <span className="text-5xl font-display font-black text-white/5 absolute top-2 right-6 group-hover:text-primary/10 transition-colors">{item.step}</span>
+                        <h5 className="text-xl font-bold mb-4">{item.title}</h5>
+                        <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -741,7 +766,8 @@ export default function App() {
       </section>
 
       {/* Packages Section */}
-      <section id="packages" className="py-32 px-6 bg-deep">
+      <section id="packages" className="relative min-h-screen py-32 px-6 bg-deep overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vh] bg-primary/5 rounded-full blur-[160px] pointer-events-none" />
         {/* ... existing packages code ... */}
         <div className="max-w-7xl mx-auto">
           <div className="mb-20 text-center">
@@ -751,25 +777,25 @@ export default function App() {
               viewport={{ once: true }}
               className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block"
             >
-              Pricing Plans
+              Transparent Pricing
             </motion.span>
-            <motion.h3 
+            <motion.h3
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-7xl font-display font-black uppercase"
             >
-              Choose Your <span className="text-primary">Plan.</span>
+              Premium Quality, <span className="text-primary">Real Prices.</span>
             </motion.h3>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="text-white/40 mt-4 max-w-xl mx-auto"
             >
-              We offer effective and affordable web design and development services. Premium quality without breaking the bank.
+              No hidden fees. No surprises. Just world-class digital work at prices that make sense for growing businesses.
             </motion.p>
           </div>
 
@@ -837,11 +863,12 @@ export default function App() {
       </section>
 
       {/* Team Section */}
-      <section id="team" className="py-32 px-6">
+      <section id="team" className="relative min-h-screen py-32 px-6">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80vw] h-[50vh] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
-            <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Our Team</span>
-            <h3 className="text-4xl md:text-6xl font-display font-black uppercase leading-tight">Meet the <span className="text-white/30">Creative Minds.</span></h3>
+            <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">The Dream Team</span>
+            <h3 className="text-4xl md:text-6xl font-display font-black uppercase leading-tight">The People <span className="text-white/30">Behind the Magic.</span></h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, i) => (
@@ -880,12 +907,13 @@ export default function App() {
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="py-32 px-6 bg-deep">
+      <section id="blog" className="relative min-h-screen py-32 px-6 bg-deep overflow-hidden">
+        <div className="absolute top-0 right-0 w-[55vw] h-[60vh] bg-primary/5 rounded-full blur-[130px] pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-20">
             <div>
-              <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Latest News</span>
-              <h3 className="text-4xl md:text-6xl font-display font-black uppercase">Industry <span className="text-white/30">Insights.</span></h3>
+              <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">From Our Blog</span>
+              <h3 className="text-4xl md:text-6xl font-display font-black uppercase">Ideas Worth <span className="text-white/30">Reading.</span></h3>
             </div>
             <button className="hidden md:flex border border-white/10 px-10 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/5 transition-all gap-2 items-center">
               View All Blog <ArrowRight size={14} />
@@ -932,11 +960,12 @@ export default function App() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-32 px-6">
+      <section id="faq" className="relative min-h-screen py-32 px-6">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-20">
-            <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Questions</span>
-            <h3 className="text-4xl md:text-6xl font-display font-black uppercase">Frequently Asked <span className="text-white/30">Questions.</span></h3>
+            <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Got Questions?</span>
+            <h3 className="text-4xl md:text-6xl font-display font-black uppercase">We've Got <span className="text-white/30">Answers.</span></h3>
           </div>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
@@ -997,8 +1026,8 @@ export default function App() {
           >
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
             <div className="relative z-10 text-center">
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] mb-6 block opacity-80">Newsletter</span>
-              <h3 className="text-4xl md:text-6xl font-display font-black uppercase mb-8 leading-tight">Get Exclusive <br /> Creative <span className="italic opacity-50">Updates.</span></h3>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] mb-6 block opacity-80">Stay in the Loop</span>
+              <h3 className="text-4xl md:text-6xl font-display font-black uppercase mb-8 leading-tight">Elite Insights <br /> Straight to Your <span className="italic opacity-50">Inbox.</span></h3>
               <div className="max-w-lg mx-auto relative group">
                 <input 
                   type="email" 
@@ -1009,14 +1038,15 @@ export default function App() {
                   <Send size={20} />
                 </button>
               </div>
-              <p className="mt-8 text-xs font-medium opacity-60">Join 5,000+ others already subcribed. No spam, ever.</p>
+              <p className="mt-8 text-xs font-medium opacity-60">Join 5,000+ founders & marketers. Zero spam. Unsubscribe anytime.</p>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-32 px-6 overflow-hidden">
+      <section id="about" className="relative min-h-screen py-32 px-6 overflow-hidden">
+        <div className="absolute top-0 left-0 w-[60vw] h-[70vh] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 items-center">
             <motion.div
@@ -1025,10 +1055,10 @@ export default function App() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">About Digital Spark Web</span>
-              <h3 className="text-5xl font-display font-black uppercase mb-8 leading-tight">Drive Your Business Towards <span className="text-primary">Success.</span></h3>
+              <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Who We Are</span>
+              <h3 className="text-5xl font-display font-black uppercase mb-8 leading-tight">Built to Help Businesses <span className="text-primary">Scale Fast.</span></h3>
               <p className="text-white/60 leading-relaxed mb-8 text-lg">
-                We are a creative agency in USA with a mission to add value to your business by constantly renewing ourselves with top-tier website design services. Our blending of style and technology enables your brand to succeed on the Web.
+                Software Elites is a results-driven software company. We turn ambitious ideas into powerful digital products — building websites, apps, and custom software that don't just look great, they perform.
               </p>
               <div className="grid grid-cols-2 gap-8 mb-10">
                 <motion.div
@@ -1063,25 +1093,25 @@ export default function App() {
               viewport={{ once: true }}
               className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000" 
-                alt="Our Team" 
+              <img
+                src="/aboutimg.webp"
+                alt="Our Team"
                 className="w-full h-full object-cover grayscale brightness-75"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b1e] via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#03080f] via-transparent to-transparent" />
             </motion.div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-20 border-t border-white/5">
              <div className="lg:col-span-1">
                <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Trust</span>
-               <h3 className="text-5xl font-display font-black uppercase mb-6 leading-none">Voices <br /> from our <br /> <span className="text-white/20">Partners.</span></h3>
+               <h3 className="text-5xl font-display font-black uppercase mb-6 leading-none">Real Words <br /> from Real <br /> <span className="text-white/20">Clients.</span></h3>
                <Quote size={80} className="text-white/5" />
              </div>
              
              <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 pt-12 items-start">
                {[
-                 { name: "Sarah Johnson", role: "CEO at TechStart", text: "Digital Spark Web transformed our online presence. Their web design team is incredibly talented." },
+                 { name: "Sarah Johnson", role: "CEO at TechStart", text: "Software Elites transformed our online presence. Their development team is incredibly talented." },
                  { name: "Michael Davis", role: "Marketing Director", text: "Working with them was the best decision for our brand. Attention to detail is unmatched." },
                  { name: "Jennifer Williams", role: "Project Manager", text: "Compelling visuals and robust code. They understood our vision perfectly from day one." },
                  { name: "Robert Brown", role: "Founder, Brown Ent.", text: "Outstanding work on our branding! They delivered an identity that truly represents us." }
@@ -1107,25 +1137,26 @@ export default function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-32 px-6 relative">
+      <section id="contact" className="relative min-h-screen py-32 px-6 overflow-hidden">
+        <div className="absolute top-1/2 right-0 w-[55vw] h-[80vh] bg-primary/8 rounded-full blur-[160px] -translate-y-1/2 pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
-              <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 block">Contact</span>
+              <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 block">Work With Us</span>
               <h3 className="text-6xl md:text-8xl font-display font-black uppercase tracking-tighter mb-8 leading-[0.85]">
-                Let's make <br />
-                it <span className="text-primary italic">Real.</span>
+                Let's Build <br />
+                Something <span className="text-primary italic">Great.</span>
               </h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-16 pt-16 border-t border-white/5">
                 <div>
                   <span className="text-[10px] font-black uppercase tracking-widest text-white/30 block mb-4">Direct Communication</span>
                   <div className="space-y-4">
-                    <a href="mailto:info@digitalsparkweb.com" className="group flex items-center gap-3">
+                    <a href="mailto:info@softwareelites.com" className="group flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors">
                         <MessageCircle size={14} className="text-white/60 group-hover:text-white" />
                       </div>
-                      <span className="font-bold border-b border-primary/20 group-hover:border-primary transition-all">info@digitalsparkweb.com</span>
+                      <span className="font-bold border-b border-primary/20 group-hover:border-primary transition-all">info@softwareelites.com</span>
                     </a>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
@@ -1188,11 +1219,11 @@ export default function App() {
 
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Your brief</label>
-                    <textarea rows={4} placeholder="Let us know what you're working on..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all resize-none placeholder:text-white/10" />
+                    <textarea rows={4} placeholder="Tell us about your project, goals, and timeline..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all resize-none placeholder:text-white/10" />
                   </div>
 
                   <button className="w-full bg-primary text-white font-black uppercase text-xs tracking-[0.4em] py-7 rounded-2xl hover:brightness-110 shadow-2xl shadow-primary/30 transition-all active:scale-[0.98]">
-                    Launch Project Inquiry
+                    Let's Build Together →
                   </button>
                 </form>
               </div>
@@ -1202,7 +1233,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 px-6 border-t border-white/5 bg-[#08091a]">
+      <footer className="py-20 px-6 border-t border-white/5 bg-[#020c18]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
             <div className="space-y-8">
@@ -1218,11 +1249,11 @@ export default function App() {
                    </div>
                 </div>
                 <span className="font-display font-black text-xl tracking-tighter uppercase leading-none">
-                  digital<span className="text-white font-light lowercase">sparkweb</span>
+                  software<span className="text-primary font-black lowercase">elites</span>
                 </span>
               </div>
               <p className="text-white/40 text-sm leading-relaxed">
-                Elevating brands through strategic design and cutting-edge digital solutions. Your success is our primary spark.
+                We turn bold visions into elite software. Websites, apps, and custom systems built to grow, convert, and last.
               </p>
               <div className="flex gap-4">
                 {[Twitter, Instagram, Linkedin, Github].map((Icon, i) => (
@@ -1269,7 +1300,7 @@ export default function App() {
                   </div>
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-white/30 block mb-1">Email Us</span>
-                    <a href="mailto:info@digitalsparkweb.com" className="text-sm font-bold border-b border-primary/20 hover:border-primary transition-all">info@digitalsparkweb.com</a>
+                    <a href="mailto:info@softwareelites.com" className="text-sm font-bold border-b border-primary/20 hover:border-primary transition-all">info@softwareelites.com</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -1296,7 +1327,7 @@ export default function App() {
 
           <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-white/20 text-center md:text-left">
             <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-              <span>© 2024 Digital Spark Web. All rights reserved.</span>
+              <span>© 2025 Software Elites. All rights reserved.</span>
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
             </div>
@@ -1321,11 +1352,11 @@ export default function App() {
               exit={{ opacity: 0, scale: 0.9, y: 10 }}
               className="flex flex-col items-end space-y-2 pointer-events-none"
             >
-              <div className="bg-white text-[#0a0b1e] px-8 py-5 rounded-[2.5rem] rounded-br-[0.5rem] shadow-2xl text-[14px] font-bold flex items-center gap-3 backdrop-blur-md">
+              <div className="bg-white text-[#03080f] px-8 py-5 rounded-[2.5rem] rounded-br-[0.5rem] shadow-2xl text-[14px] font-bold flex items-center gap-3 backdrop-blur-md">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-lg">👋</span>
                 </div>
-                How can we help you today?
+                Hey! Ready to grow your brand? 🚀
               </div>
               <motion.div 
                 whileHover={{ scale: 1.05 }}
@@ -1334,7 +1365,7 @@ export default function App() {
                 className="bg-white/95 backdrop-blur-md text-primary px-6 py-4 rounded-[1.5rem] shadow-xl text-[10px] font-black uppercase tracking-[0.2em] border border-primary/10 pointer-events-auto cursor-pointer flex items-center gap-2 group transition-all"
               >
                 <Sparkles size={14} className="group-hover:rotate-12 transition-transform" />
-                I have a question
+                I have a question 💬
               </motion.div>
               <motion.div 
                 whileHover={{ scale: 1.05 }}
@@ -1343,7 +1374,7 @@ export default function App() {
                 className="bg-white/95 backdrop-blur-md text-primary px-6 py-4 rounded-[1.5rem] shadow-xl text-[10px] font-black uppercase tracking-[0.2em] border border-primary/10 pointer-events-auto cursor-pointer flex items-center gap-2 group transition-all"
               >
                 <Smartphone size={14} className="group-hover:scale-110 transition-transform" />
-                Tell me about apps
+                Get a free quote
               </motion.div>
             </motion.div>
           )}
@@ -1359,7 +1390,7 @@ export default function App() {
             <MessageCircle size={28} fill="currentColor" />
           )}
           {!isChatOpen && (
-             <div className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-[#0a0b1e] animate-ping" />
+             <div className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-[#03080f] animate-ping" />
           )}
         </button>
       </div>
