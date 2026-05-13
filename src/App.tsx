@@ -202,7 +202,7 @@ export default function App() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0, y: 20 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-10 right-10 w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/40 z-50 hover:scale-110 active:scale-95 transition-all group"
+            className="fixed bottom-6 left-4 md:left-auto md:right-10 w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/40 z-50 hover:scale-110 active:scale-95 transition-all group"
           >
             <ArrowUpRight className="-rotate-45 group-hover:-translate-y-1 transition-transform" size={24} />
           </motion.button>
@@ -222,7 +222,7 @@ export default function App() {
         COLOR="#3b82f6"
       />
       {/* Header / Navbar */}
-      <nav className={`fixed w-full z-50 px-8 transition-all duration-500 ${isScrolled ? 'py-3 bg-[#03080f]/80 backdrop-blur-2xl border-b border-white/[0.07] shadow-2xl shadow-black/40' : 'py-7'}`}>
+      <nav className={`fixed w-full z-50 px-4 md:px-8 transition-all duration-500 ${isScrolled ? 'py-3 bg-[#03080f]/80 backdrop-blur-2xl border-b border-white/[0.07] shadow-2xl shadow-black/40' : 'py-7'}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo - Matching screenshot dots */}
           <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection('home')}>
@@ -398,7 +398,7 @@ export default function App() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.55 }}
-            className="mt-6 text-lg md:text-xl text-white/60 max-w-xl leading-relaxed"
+            className="mt-6 text-lg md:text-xl text-white/80 max-w-xl leading-relaxed"
           >
             Premium software company crafting powerful websites,
             mobile apps & custom systems that scale.
@@ -506,7 +506,7 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-white/40 max-w-sm text-sm leading-relaxed"
+              className="text-white/70 max-w-sm text-sm leading-relaxed"
             >
               From pixel-perfect design to scalable code — we handle every piece of your digital presence so you can focus on growing your business.
             </motion.p>
@@ -558,7 +558,7 @@ export default function App() {
                   </div>
                   <div className="text-primary mb-4 group-hover:scale-110 transition-transform origin-left">{service.icon}</div>
                   <h4 className="text-lg font-bold mb-3">{service.title}</h4>
-                  <p className="text-white/40 text-xs leading-relaxed mb-6">{service.desc}</p>
+                  <p className="text-white/75 text-xs leading-relaxed mb-6">{service.desc}</p>
                   <button className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-white/60 group-hover:text-primary transition-colors">
                     Learn More <ArrowRight size={12} />
                   </button>
@@ -596,7 +596,7 @@ export default function App() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-white/40 mb-12"
+              className="text-white/70 mb-12"
             >
               500+ projects delivered across 30+ industries. Every pixel intentional, every line of code purposeful.
             </motion.p>
@@ -755,7 +755,7 @@ export default function App() {
                       <div className="p-8 relative">
                         <span className="text-5xl font-display font-black text-white/5 absolute top-2 right-6 group-hover:text-primary/10 transition-colors">{item.step}</span>
                         <h5 className="text-xl font-bold mb-4">{item.title}</h5>
-                        <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                        <p className="text-white/75 text-sm leading-relaxed">{item.desc}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -793,7 +793,7 @@ export default function App() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-white/40 mt-4 max-w-xl mx-auto"
+              className="text-white/70 mt-4 max-w-xl mx-auto"
             >
               No hidden fees. No surprises. Just world-class digital work at prices that make sense for growing businesses.
             </motion.p>
@@ -846,7 +846,7 @@ export default function App() {
                   <h4 className="text-2xl font-bold mb-8">{pkg.title}</h4>
                   <ul className="space-y-4 mb-10 border-t border-white/10 pt-8 flex-grow">
                     {pkg.features.map(feat => (
-                      <li key={feat} className="flex items-center gap-3 text-sm text-white/60">
+                      <li key={feat} className="flex items-center gap-3 text-sm text-white/85">
                         <div className="w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_8px_rgba(165,4,23,0.8)]" />
                         {feat}
                       </li>
@@ -994,7 +994,7 @@ export default function App() {
                       exit={{ height: 0, opacity: 0 }}
                       className="px-8 pb-8"
                     >
-                      <p className="text-white/40 leading-relaxed pt-4 border-t border-white/10">
+                      <p className="text-white/75 leading-relaxed pt-4 border-t border-white/10">
                         {faq.a}
                       </p>
                     </motion.div>
@@ -1048,7 +1048,7 @@ export default function App() {
       <section id="about" className="relative min-h-screen py-32 px-6 overflow-hidden">
         <div className="absolute top-0 left-0 w-[60vw] h-[70vh] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 mb-20 lg:mb-32 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -1057,7 +1057,7 @@ export default function App() {
             >
               <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block">Who We Are</span>
               <h3 className="text-5xl font-display font-black uppercase mb-8 leading-tight">Built to Help Businesses <span className="text-primary">Scale Fast.</span></h3>
-              <p className="text-white/60 leading-relaxed mb-8 text-lg">
+              <p className="text-white/85 leading-relaxed mb-8 text-lg">
                 Software Elites is a results-driven software company. We turn ambitious ideas into powerful digital products — building websites, apps, and custom software that don't just look great, they perform.
               </p>
               <div className="grid grid-cols-2 gap-8 mb-10">
@@ -1122,9 +1122,9 @@ export default function App() {
                    whileInView={{ opacity: 1, y: 0 }}
                    viewport={{ once: true }}
                    transition={{ delay: i * 0.1 }}
-                   className={`p-10 rounded-[2.5rem] ${i % 2 === 1 ? 'bg-primary/10 border border-primary/20 mt-12' : 'bg-white/5 border border-white/10'}`}
+                   className={`p-10 rounded-[2.5rem] ${i % 2 === 1 ? 'bg-primary/10 border border-primary/20 md:mt-12' : 'bg-white/5 border border-white/10'}`}
                  >
-                   <p className="text-lg leading-relaxed mb-8 italic">"{test.text}"</p>
+                   <p className="text-lg leading-relaxed mb-8 italic text-white/90">"{test.text}"</p>
                    <div>
                      <p className="font-bold">{test.name}</p>
                      <p className="text-xs font-black uppercase tracking-widest text-primary/60">{test.role}</p>
@@ -1143,7 +1143,7 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative z-10">
               <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 block">Work With Us</span>
-              <h3 className="text-6xl md:text-8xl font-display font-black uppercase tracking-tighter mb-8 leading-[0.85]">
+              <h3 className="text-4xl md:text-6xl lg:text-8xl font-display font-black uppercase tracking-tighter mb-8 leading-[0.85]">
                 Let's Build <br />
                 Something <span className="text-primary italic">Great.</span>
               </h3>
@@ -1162,7 +1162,7 @@ export default function App() {
                       <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                         <Phone size={14} className="text-white/60" />
                       </div>
-                      <span className="font-medium text-white/60">+1 (877) 513-4503</span>
+                      <span className="font-medium text-white/85">+1 (877) 513-4503</span>
                     </div>
                   </div>
                 </div>
@@ -1197,17 +1197,17 @@ export default function App() {
                 <form className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">What's your name?</label>
-                      <input type="text" placeholder="Type here..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all placeholder:text-white/10" />
+                      <label className="text-[10px] font-black uppercase tracking-widest text-white/70 ml-4">What's your name?</label>
+                      <input type="text" placeholder="Type here..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all placeholder:text-white/40" />
                     </div>
                     <div className="space-y-3">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Your email address</label>
-                      <input type="email" placeholder="example@mail.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all placeholder:text-white/10" />
+                      <label className="text-[10px] font-black uppercase tracking-widest text-white/70 ml-4">Your email address</label>
+                      <input type="email" placeholder="example@mail.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all placeholder:text-white/40" />
                     </div>
                   </div>
                   
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">How can we help?</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-white/70 ml-4">How can we help?</label>
                     <div className="flex flex-wrap gap-2">
                       {['Design', 'Development', 'Strategy', 'AI Solution'].map(label => (
                         <button key={label} type="button" className="px-5 py-2 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-wider hover:border-primary hover:text-primary transition-all">
@@ -1218,8 +1218,8 @@ export default function App() {
                   </div>
 
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Your brief</label>
-                    <textarea rows={4} placeholder="Tell us about your project, goals, and timeline..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all resize-none placeholder:text-white/10" />
+                    <label className="text-[10px] font-black uppercase tracking-widest text-white/70 ml-4">Your brief</label>
+                    <textarea rows={4} placeholder="Tell us about your project, goals, and timeline..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/50 transition-all resize-none placeholder:text-white/40" />
                   </div>
 
                   <button className="w-full bg-primary text-white font-black uppercase text-xs tracking-[0.4em] py-7 rounded-2xl hover:brightness-110 shadow-2xl shadow-primary/30 transition-all active:scale-[0.98]">
@@ -1252,7 +1252,7 @@ export default function App() {
                   software<span className="text-primary font-black lowercase">elites</span>
                 </span>
               </div>
-              <p className="text-white/40 text-sm leading-relaxed">
+              <p className="text-white/70 text-sm leading-relaxed">
                 We turn bold visions into elite software. Websites, apps, and custom systems built to grow, convert, and last.
               </p>
               <div className="flex gap-4">
@@ -1271,7 +1271,7 @@ export default function App() {
                   <li key={link}>
                     <button 
                       onClick={() => scrollToSection(link.toLowerCase().replace(' ', ''))}
-                      className="text-white/40 hover:text-white transition-colors text-sm font-medium"
+                      className="text-white/70 hover:text-white transition-colors text-sm font-medium"
                     >
                       {link}
                     </button>
@@ -1284,7 +1284,7 @@ export default function App() {
               <h4 className="text-xs font-black uppercase tracking-[0.3em] mb-8 text-primary">Core Services</h4>
               <ul className="space-y-4">
                 {["Web Design", "Development", "SEO Strategy", "Social Media", "Logo Branding", "Mobile Apps"].map(service => (
-                  <li key={service} className="text-white/40 text-sm font-medium hover:text-white cursor-pointer transition-colors">
+                  <li key={service} className="text-white/70 text-sm font-medium hover:text-white cursor-pointer transition-colors">
                     {service}
                   </li>
                 ))}
@@ -1318,14 +1318,14 @@ export default function App() {
                   </div>
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-white/30 block mb-1">USA Office</span>
-                    <p className="text-sm font-medium text-white/40">7901 4th St N STE 300, St. Petersburg, FL 33702</p>
+                    <p className="text-sm font-medium text-white/70">7901 4th St N STE 300, St. Petersburg, FL 33702</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-white/20 text-center md:text-left">
+          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 text-center md:text-left">
             <div className="flex flex-col md:flex-row gap-4 md:gap-8">
               <span>© 2025 Software Elites. All rights reserved.</span>
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
@@ -1400,7 +1400,7 @@ export default function App() {
         href="https://wa.me/18775134503" 
         target="_blank" 
         rel="noreferrer"
-        className="fixed bottom-32 right-8 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform active:scale-95 group"
+        className="fixed bottom-24 left-4 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform active:scale-95 group"
       >
         <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20 group-hover:block" />
         <svg 
