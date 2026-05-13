@@ -1345,39 +1345,6 @@ export default function App() {
           {isChatOpen && (
             <ChatBox onClose={() => setIsChatOpen(false)} />
           )}
-          {!isChatOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9, y: 10 }}
-              className="flex flex-col items-end space-y-2 pointer-events-none"
-            >
-              <div className="bg-white text-[#03080f] px-8 py-5 rounded-[2.5rem] rounded-br-[0.5rem] shadow-2xl text-[14px] font-bold flex items-center gap-3 backdrop-blur-md">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-lg">👋</span>
-                </div>
-                Hey! Ready to grow your brand? 🚀
-              </div>
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsChatOpen(true)}
-                className="bg-white/95 backdrop-blur-md text-primary px-6 py-4 rounded-[1.5rem] shadow-xl text-[10px] font-black uppercase tracking-[0.2em] border border-primary/10 pointer-events-auto cursor-pointer flex items-center gap-2 group transition-all"
-              >
-                <Sparkles size={14} className="group-hover:rotate-12 transition-transform" />
-                I have a question 💬
-              </motion.div>
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsChatOpen(true)}
-                className="bg-white/95 backdrop-blur-md text-primary px-6 py-4 rounded-[1.5rem] shadow-xl text-[10px] font-black uppercase tracking-[0.2em] border border-primary/10 pointer-events-auto cursor-pointer flex items-center gap-2 group transition-all"
-              >
-                <Smartphone size={14} className="group-hover:scale-110 transition-transform" />
-                Get a free quote
-              </motion.div>
-            </motion.div>
-          )}
         </AnimatePresence>
         
         <button 
