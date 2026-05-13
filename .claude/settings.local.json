@@ -3,7 +3,8 @@
     "allow": [
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Muhammad Umer\\\\Desktop\\\\office work\\\\Office-web\" -Recurse -Include *.png,*.jpg,*.jpeg,*.gif,*.svg,*.webp,*.ico -Exclude node_modules,dist)",
       "Bash(Select-Object -ExpandProperty FullName)",
-      "Bash(Sort-Object)"
+      "Bash(Sort-Object)",
+      "Bash(git push *)"
     ]
   }
 }
